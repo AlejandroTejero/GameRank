@@ -1,0 +1,40 @@
+{% extends 'gamerank/base.html' %}
+
+{% block contenido %}
+<section class="games-section container-fluid px-0 mt-5">
+    <h1 class="text-center mb-4">Juegos Seguidos</h1>
+
+    {% if seguidos %}
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+            {% for game in seguidos %}
+                <div class="col">
+                    <div class="game-card card h-100">
+                        <img src="{{ game.thumbnail }}" class="card-img-top" alt="{{ game.title }}">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ game.title }}</h5>
+                            <p class="card-text mb-1"><strong>Género:</strong> {{ game.genre }}</p>
+                            <p class="card-text mb-1"><strong>Puntuación:</strong> {{ game.rating|floatformat:1 }}</p>
+                            <p class="card-text mb-1"><strong>Votos</strong> {{ game.votes }}</p>
+                            <p class="card-text mb-3"><strong>Plataforma:</strong> {{ game.platform }}</p>
+
+
+                            <div class="mt-auto d-flex justify-content-between">
+                                <a href="{% url 'detalles_juego' game.game_id %}" class="btn btn-primary btn-sm">Ver detalles</a>
+
+                                <form action="{% url 'follow_game' game.game_id %}" method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-secondary btn-sm">Dejar de seguir</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-muted">
+            No estás siguiendo ningún juego aún.
+        </p>
+    {% endif %}
+</section>
+{% endblock %}

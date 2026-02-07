@@ -1,0 +1,17 @@
+<!-- Heredo de base para poder pintar barra y portada-->
+{% extends 'gamerank/base.html' %}
+
+{% block portada %}
+<section class="portada">
+    <div class="contenido-portada text-center">
+        <h1>GameRank</h1>
+        <p class="lead">
+            Descubre, vota y sigue tus juegos favoritos
+        </p>
+        <a href="{% url 'index' %}" class="btn-custom btn btn-primary btn-lg">Comenzar</a>
+        <!-- Dirige al id de games-section definido en index, que es donde están los juegos -->
+        <!-- <a href="juegos" class="btn btn-primary btn-lg mt-3">Comenzar</a> -->
+    </div>
+</section>
+{% endblock %}
+

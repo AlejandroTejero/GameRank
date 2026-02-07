@@ -1,0 +1,23 @@
+{% extends 'gamerank/base.html' %}
+
+{% block contenido %}
+<div class="usuario-page container-fluid px-0">
+  <div class="card shadow-sm p-4" style="max-width: 400px; width: 90%;">
+    <div class="card-body text-center">
+      <h2 class="card-title mb-4">Perfil de {{ user.username }}</h2>
+
+      <p class="mb-2"><strong>Votaciones realizadas:</strong></p>
+      <p class="h4">{{ num_votos }}</p>
+
+      <p class="mt-3 mb-2"><strong>Puntuación media:</strong></p>
+      <p class="h4">{{ media_usuario|floatformat:1 }}</p>
+
+      <div class="mt-4">
+        <a href="{% url 'juegos_votados' %}" class="btn btn-outline-primary btn-sm me-2">Ver votados</a>
+        <a href="{% url 'juegos_seguidos' %}" class="btn btn-outline-success btn-sm">Ver seguidos</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,119 @@
+{% extends 'gamerank/base.html' %}
+
+{% block contenido %}
+<br>
+<div class="container mt-5">
+    <div class="row">
+        <!-- IZQUIERDA: Imagen, datos y botón Volver -->
+        <div class="col-md-6">
+            <div class="card mb-4 shadow-sm game-info-card">
+                <img
+                    src="{{ game.thumbnail }}"
+                    class="card-img-top game-info-img"
+                    alt="{{ game.title }}"
+                >
+                <div class="card-body">
+                    <h2 class="card-title d-flex align-items-center justify-content-between">
+                        {{ game.title }}
+                        {% if request.user.is_authenticated %}
+                            {% if request.user in game.followers.all %}
+                                <form action="{% url 'follow_game' game.game_id %}" method="post" class="ms-3">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                                    <button type="submit" class="btn btn-secondary btn-sm">Dejar de seguir</button>
+                                </form>
+                            {% else %}
+                                <form action="{% url 'follow_game' game.game_id %}" method="post" class="ms-3">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                                    <button type="submit" class="btn btn-primary btn-sm">Seguir</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    </h2>
+
+                    <p class="card-text"><strong>Género:</strong> {{ game.genre }}</p>
+                    <p class="card-text"><strong>Fecha de Lanzamiento:</strong> {{ game.release_date }}</p>
+                    <p class="card-text"><strong>Plataforma:</strong> {{ game.platform }}</p>
+                    <p class="card-text"><strong>Desarrollador:</strong> {{ game.developer }}</p>
+                    <p class="card-text"><strong>Publicador:</strong> {{ game.publisher }}</p>
+                    <p class="card-text">
+                        <strong>Descripción:</strong><br>
+                        {{ game.short_description }}
+                    </p>
+
+                    <!-- Botón para volver al index -->
+                    <a href="{% url 'index' %}" class="btn btn-outline-secondary btn-sm mt-3">Pagina Principal</a>
+                    <!-- Botón para descargar json -->
+                    <a href="{% url 'descargar_juego_json' game.game_id %}" class="btn btn-outline-success btn-sm mt-3">Descargar JSON</a>
+                    <!-- Nuevo botón: lleva a la página dinámica de comentarios -->
+                    <a href="{% url 'dinamic' game.game_id %}" class="btn btn-outline-info btn-sm mt-3">Ver comentarios dinámicos</a>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- DERECHA: Valoraciones y comentarios -->
+        <div class="col-md-6 d-flex flex-column">
+            <!-- Valoración Media -->
+            <div class="mb-4 p-3 bg-light rounded shadow-sm">
+                <h5>Valoración Media</h5>
+                <p class="fs-4 mb-1">
+                    {{ avg_rating|floatformat:1 }} <small>/ 5</small>
+                </p>
+                <small class="text-muted">
+                    {{ total_ratings }} voto{% if total_ratings != 1 %}s{% endif %}
+                </small>
+            </div>
+
+            <!-- Tu valoración -->
+            <div class="mb-4 p-3 bg-white rounded shadow-sm">
+                <h5>Tu valoración</h5>
+                {% if request.user.is_authenticated %}
+                    <form method="post" class="d-flex align-items-center gap-2">
+                        {% csrf_token %}
+                        {{ rating_form.score }}
+                        <button name="submit_rating" class="btn btn-primary btn-sm">
+                            Enviar
+                        </button>
+                    </form>
+                    {% if user_rating %}
+                        <p class="mt-2 small text-muted">Has puntuado este juego con {{ user_rating }}.</p>
+                    {% endif %}
+                {% else %}
+                    <p><a href="{% url 'login' %}">Inicia sesión</a> para valorar.</p>
+                {% endif %}
+            </div>
+
+            <!-- Comentarios dinámicos -->
+            <div class="mb-4 p-3 bg-light rounded shadow-sm flex-grow-1 overflow-auto">
+              <h5>Comentarios Dinamicos</h5>
+              <div
+                id="comments-container"
+                hx-get="{% url 'comments_dinamic' game.game_id %}"
+                hx-trigger="load, every 30s"
+                hx-swap="innerHTML">
+                {% include 'gamerank/comments.html' %}
+              </div>
+            </div>
+
+
+            <!-- Formulario de nuevo comentario -->
+            <div class="mb-4 p-3 bg-white rounded shadow-sm">
+                {% if request.user.is_authenticated %}
+                    <h5>Deja tu comentario</h5>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ comment_form.content }}
+                        <button name="submit_comment" class="btn btn-primary btn-sm mt-2">Enviar comentario</button>
+                    </form>
+                {% else %}
+                    <p><a href="{% url 'login' %}">Inicia sesión</a> para comentar.</p>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>
+<br><br><br>
+{% endblock %}

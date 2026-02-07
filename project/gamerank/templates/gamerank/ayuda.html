@@ -1,0 +1,78 @@
+{% extends 'gamerank/base.html' %}
+
+{% block contenido %}
+<section class="container mt-5 ayuda-section">
+    <h2 class="titulo-seccion">Página de Ayuda</h2><br>
+
+    <h2>1. ¿Qué es GameRank?</h2>
+    <p>
+        GameRank es una aplicación web que te permite descubrir, votar y seguir tus videojuegos favoritos.
+        En la portada encontrarás un botón para comenzar, que te lleva directamente al listado de juegos.
+        Investiga y disfruta.
+    </p>
+
+    <h2>2. Estructura de la aplicación</h2>
+    <ul>
+        <li>
+            <strong>Modelos</strong>
+            <ul>
+                <li><code>Game</code>: almacena datos básicos (título, género, plataforma, fecha, etc.).</li>
+                <li><code>Valoracion</code>: guarda la puntuación (0–5) de cada usuario por juego.</li>
+                <li><code>Comentario</code>: registra los comentarios de los usuarios con fecha.</li>
+                <li><code>Perfil Usuario</code>: guarda el alias y el tipo de fuente deseada por el usuario.</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Urls</strong>
+            <ul>
+                <li><code>/</code>: Ruta principal de la aplicación, la portada. Vinculada al archivo <code>portada.html</code>.</li>
+                <li><code>/login</code>: Página de inicio de sesión. Vinculada al archivo <code>login.html</code>.</li>
+                <li><code>/registro</code>: Página para crear una nueva cuenta. Vinculada al archivo <code>registro.html</code>.</li>
+                <li><code>/configuracion</code>: Página para configurar el perfil del usuario. Vinculada al archivo <code>configuracion.html</code>.</li>
+                <li><code>/usuario</code>: Página que muestra la información del usuario. Vinculada al archivo <code>usuario.html</code>.</li>
+                <li><code>/juegos</code>: Página principal con todos los juegos. Vinculada al archivo <code>index.html</code>.</li>
+                <li><code>/game_id</code>: Página de detalles del juego. Vinculada al archivo <code>detalles_juego.html</code>.</li>
+                <li><code>/juegos_votados</code>: Página con los juegos votados por el usuario. Vinculada al archivo <code>juegos_votados.html</code>.</li>
+                <li><code>/juegos_seguidos</code>: Página con los juegos seguidos por el usuario. Vinculada al archivo <code>juegos_seguidos.html</code>.</li>
+                <li><code>/ayuda</code>: Página con la información de ayuda de la aplicación. Vinculada al archivo <code>ayuda.html</code>.</li>
+            </ul>
+        </li>
+        <li>
+            <strong>Templates</strong>
+            <ul>
+
+                <li><code>base.html</code>: Plantilla base que contiene el esqueleto común de la aplicación, como el navbar y la estructura básica de la página.</li>
+                <li><code>navbar.html</code>: Contiene la estructura de la barra de navegación.</li>
+                <li><code>comments.html</code>: Plantilla usada para mostrar y agregar comentarios en los juegos.</li>
+                <li><code>portada.html</code>: Plantilla para la página principal donde los usuarios pueden comenzar.</li>
+                <li><code>configuracion.html</code>: Plantilla para la página de configuración donde los usuarios pueden cambiar su alias y otras preferencias.</li>
+                <li><code>index.html</code>: Plantilla que muestra la lista de juegos.</li>
+                <li><code>detalles_juego.html</code>: Plantilla que muestra los detalles de un juego específico.</li>
+
+            </ul>
+        </li>
+        <li>
+            <strong>CSS</strong>
+            <ul>
+                <li><code>style.css</code>: estilos personalizados para navbar, portada, sección de juegos y detalles.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>3. Cómo usarla</h2>
+    <ol>
+        <li><strong>Portada</strong>: haz clic en “Comenzar” o en “Principal” para ver los juegos.</li>
+        <li><strong>Lista de Juegos</strong>: Sigue juegos deseados y haz clic en “Ver detalles”.</li>
+        <li><strong>Detalles</strong>: valora (0–5) y comenta que te ha parecido el juego.</li>
+        <li><strong>Juegos Votados</strong>: consulta los juegos en los que votaste </li>
+        <li><strong>Juegos Seguidos</strong>: consulta los juegos que sigues</li>
+        <li><strong>Configuración</strong>: cambia tu alias y el tipo de fuente.</li>
+        <li><strong>Mi Perfil</strong>: accede desde la navbar para ver tus juegos seguidos y votados.</li>
+    </ol>
+
+    <p class="mt-4 text-muted small">
+        © 2025 Alejandro Tejero de la Morena.
+    </p>
+</section>
+<br><br>
+{% endblock %}

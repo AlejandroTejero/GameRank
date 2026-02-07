@@ -1,0 +1,94 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="{% url 'portada' %}">
+            <img src="{% static 'images/logo.png' %}" alt="Mi Logo">
+        </a>
+
+        <!-- Navbar resposive para dispositivos pequeños -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                {% if request.resolver_match.url_name != 'index' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Principal</a>
+                    </li>
+                {% endif %}
+
+                {% if user.is_authenticated %}
+                    {% if request.resolver_match.url_name != 'juegos_votados' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'juegos_votados' %}">Juegos Votados</a>
+                        </li>
+                    {% endif %}
+
+                    {% if request.resolver_match.url_name != 'juegos_seguidos' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'juegos_seguidos' %}">Juegos Seguidos</a>
+                        </li>
+                    {% endif %}
+
+                    {% if request.resolver_match.url_name != 'configuracion' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'configuracion' %}">Configuración</a>
+                        </li>
+                    {% endif %}
+
+                    {% if request.resolver_match.url_name != 'ayuda' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'ayuda' %}">Ayuda</a>
+                        </li>
+                    {% endif %}
+
+                    {% if user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/">Admin</a>
+                        </li>
+                    {% endif %}
+
+                    {% if request.resolver_match.url_name != 'usuario' %}
+                            <li class="nav-item">
+                                <!-- <a class="nav-link" href="{% url 'usuario' %}">{{ user.username }}</a> -->
+                                <!-- Mostara el nombre, pero si hay alias muestra ese -->
+                                <a class="nav-link" href="{% url 'usuario' %}">{{ user.perfil.alias|default:user.username }}</a>
+                            </li>
+                    {% endif %}
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Anónimo</a>
+                    </li>
+                    {% if request.resolver_match.url_name != 'ayuda' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'ayuda' %}">Ayuda</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            </ul>
+
+            <!-- Botones a la derecha gracias a ms-auto-->
+            <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                    {% if request.resolver_match.url_name != 'logout' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    {% if request.resolver_match.url_name != 'login' %}
+                        <li class="nav-item">
+                            <a class="nav-link btn-outline-primary btn-sm me-2" href="{% url 'login' %}">Login</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link btn-primary btn-sm text-white" href="{% url 'registro' %}">Registrarse</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

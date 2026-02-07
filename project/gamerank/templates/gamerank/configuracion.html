@@ -1,0 +1,13 @@
+{% extends 'gamerank/base.html' %}
+
+{% block contenido %}
+<h2 class="titulo-seccion">Configuración de Usuario</h2>
+<!-- Formulario de configuración -->
+<form method="post" class="mt-3">
+    {% csrf_token %}
+    <!-- Renderizo los datos (context) de la vista (form) -->
+    <!-- as_p = campo se renderiza dentro de un <p> = sencillo y limpio -->
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+</form>
+{% endblock %}
