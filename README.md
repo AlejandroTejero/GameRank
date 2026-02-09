@@ -1,4 +1,4 @@
-# GameRank 🎮 (Django)
+# GameRank
 
 **GameRank** es una aplicación web desarrollada con **Django** para explorar un catálogo de videojuegos (agregados desde varias fuentes), ver su ficha de detalle y permitir interacción de usuarios: **valoraciones, comentarios, likes/dislikes y seguimiento de juegos**.  
 Incluye además una vista con carga dinámica de comentarios usando **HTMX**.
@@ -43,8 +43,6 @@ Cada juego se guarda con un `game_id` único con prefijo:
 - `LIS1-<id>`
 - `FTP-<id>`
 - `MMO-<id>`
-
-> Importante: la carga de datos se dispara desde la vista `index()` llamando a `procesar_xml()`, `procesar_ftp()` y `procesar_mmo()`.
 
 ---
 
