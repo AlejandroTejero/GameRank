@@ -6,6 +6,7 @@ Incluye además una vista con carga dinámica de comentarios usando **HTMX**.
 ---
 
 ## Tabla de contenidos
+- [Video Ejecucción](#video-ejecucción)
 - [Características](#características)
 - [Fuentes de datos](#fuentes-de-datos)
 - [Stack y dependencias](#stack-y-dependencias)
@@ -13,6 +14,11 @@ Incluye además una vista con carga dinámica de comentarios usando **HTMX**.
 - [Uso](#uso)
 
 ---
+
+## Video Ejecucción
+
+- Parte básica del proyecto: https://youtu.be/R6o8lVPgEIk
+- Algunas mejoras: https://youtu.be/Ur3qgCoyuu8
 
 ## Características
 - **Portada** y página principal de juegos
